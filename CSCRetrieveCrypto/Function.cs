@@ -19,12 +19,24 @@ namespace CSCRetrieveCrypto
     [Serializable]
     public class Coin
     {
-        public string id { get; set; }
+        public static string id { get; set; }
         public string rank { get; set; }
         public string symbol { get; set; }
         public string supply { get; set; }
         public double priceUsd { get; set; }
 
+        public Coin(string i, string r, string sy, string su, double pri)
+        {
+            id = i;
+            rank = r;
+            symbol = sy;
+            supply = su;
+            priceUsd = pri;
+        }
+
+        public Coin()
+        {
+        }
     }
     public class Function
     {
@@ -33,15 +45,23 @@ namespace CSCRetrieveCrypto
 
         public async Task<string> FunctionHandler(APIGatewayProxyRequest input, ILambdaContext context)
         {
-            string coinSymbol;
+            string coinSymbol = "";
+            string testVariable = null;
 
             Table table = Table.LoadTable(client, tableName);
 
             Dictionary<string, string> queryStrings = (Dictionary<string, string>)input.QueryStringParameters;
-            queryStrings.TryGetValue("coinName", out coinSymbol);
 
-            if (coinSymbol == null)
+            if (queryStrings != null)
             {
+                queryStrings.TryGetValue("coinName", out coinSymbol);
+            }
+            else
+            {
+                if(testVariable != null)
+                {
+                    coinSymbol = testVariable;
+                }    
                 coinSymbol = "bitcoin";
             }
 

@@ -19,5 +19,6 @@
     "function-role"        : "arn:aws:iam::041932083332:role/service-role/HelloWorld-role-ibft1lni",
     "tracing-mode"         : "PassThrough",
     "environment-variables" : "",
-    "image-tag"             : ""
+    "image-tag"             : "",
+    "function-description"  : ""
 }
